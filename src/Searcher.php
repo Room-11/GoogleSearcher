@@ -86,6 +86,10 @@ class Searcher
         return $results;
     }
 
+    /**
+     * @param string $term
+     * @return SearchResultSet
+     */
     private function doSearch(string $term)
     {
         $uri = $this->getSearchURL($term);
@@ -123,9 +127,11 @@ class Searcher
         $xpath = new \DOMXPath($dom);
         $resultNodes = $xpath->query('//*[' . xpath_html_class('g') . ']');
 
-        return $resultNodes->length > 0
+        $results =  $resultNodes->length > 0
             ? $this->getSearchResults($resultNodes, $xpath)
             : [];
+
+        return new SearchResultSet($term, $uri, $results);
     }
 
     public function __construct(HttpClient $httpClient)
@@ -135,10 +141,11 @@ class Searcher
 
     /**
      * @param string $term
-     * @return Promise<SearchResult[]>
+     * @return Promise<SearchResultSet>
      */
     public function search(string $term): Promise
     {
+        /** @noinspection PhpParamsInspection */
         return resolve($this->doSearch($term));
     }
 }
