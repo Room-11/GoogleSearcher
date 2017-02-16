@@ -1,0 +1,20 @@
+{
+  "name": "room11/google-searcher",
+  "description": "Retrieves results from the first page of a Google search",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Chris Wright",
+      "email": "github@daverandom.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"Room11\\GoogleSearcher\\": "src/"}
+  },
+  "require": {
+    "php": ">=7.1",
+    "amphp/artax": "^2",
+    "room11/dom-utils": "~1.0"
+  }
+}
